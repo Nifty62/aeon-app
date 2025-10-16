@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect, useRef, useMemo } from 'react';
-import type { SourceSettings, ApiKey, AnalysisData, RecapStyle, AIProvider, AIModelSettings, RetrySettings, HistoricalData, Trade, FullAppState, Language, MarketDataApiKey, RiskSentimentAnalysis, Theme } from '../../types.ts';
+import type { SourceSettings, AnalysisData, RecapStyle, AIModelSettings, RetrySettings, HistoricalData, Trade, FullAppState, Language, RiskSentimentAnalysis, Theme } from '../../types.ts';
 import './SettingsModal.css';
 import { useLocalization } from '../../context/LocalizationContext.tsx';
 import { sourceIndicatorConfig, aiModels } from '../../data/config.ts';

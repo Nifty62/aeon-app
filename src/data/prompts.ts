@@ -1,4 +1,6 @@
-export const getScoringPrompt = (indicator, currencyCode, scoringRules, rawData) => {
+import type { Indicator, IndicatorScores, RecapStyle } from '../types';
+
+export const getScoringPrompt = (indicator: Indicator, currencyCode: string, scoringRules: string, rawData: string) => {
     return `
 Analyze the following economic data for ${currencyCode} regarding the "${indicator}" indicator.
 Based on the data and the provided scoring rules, determine a score from -2 to +2.
@@ -20,7 +22,7 @@ Your response MUST be a JSON object with the following structure, and nothing el
 `;
 };
 
-export const getRecapPrompt = (currencyCode, recapStyle, indicatorData) => {
+export const getRecapPrompt = (currencyCode: string, recapStyle: RecapStyle, indicatorData: IndicatorScores) => {
     const indicatorText = Object.entries(indicatorData)
         .filter(([, data]) => data && typeof data.score === 'number') // Ensure data exists
         .map(([indicator, data]) => `- ${indicator}: Score ${data.score}, Rationale: ${data.rationale}`)
@@ -71,7 +73,7 @@ Your response MUST be a JSON object with the following structure, and nothing el
 `;
 };
 
-export const getCentralBankPrompt = (currencyCode, documentText) => {
+export const getCentralBankPrompt = (currencyCode: string, documentText: string) => {
   return `
 Analyze the following text from ${currencyCode}'s central bank.
 Determine the overall monetary policy sentiment.

@@ -53,7 +53,7 @@ const ChartsPage: React.FC<ChartsPageProps> = ({ historicalData }) => {
 
         const metricFunctions: { [key: string]: (snapshot: typeof historicalData[0], median: number | null) => number | null } = {
             // FIX: The `median` variable was not defined in this scope. Changed to correctly accept and return the `median` parameter.
-            'Median Score': (snapshot, median) => median,
+            'Median Score': (_snapshot, median) => median,
             'Sigma Score': (snapshot) => snapshot.data[selectedCurrency]?.sigmaScore ?? null,
             'Deviation': (snapshot, median) => {
                 const score = snapshot.data[selectedCurrency]?.sigmaScore;

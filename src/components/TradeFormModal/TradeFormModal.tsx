@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import type { Trade, TradeDirection, TradeStatus } from '../../types.ts';
+import type { Trade } from '../../types.ts';
 import './TradeFormModal.css';
 import { useLocalization } from '../../context/LocalizationContext.tsx';
 

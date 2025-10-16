@@ -2,7 +2,6 @@ import { GoogleGenAI } from "@google/genai";
 import type {
     Currency,
     SourceSettings,
-    ApiKey,
     AIModelSettings,
     RetrySettings,
     Indicator,
@@ -46,24 +45,24 @@ async function callAI(
 ): Promise<string> {
     const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-    if (!geminiApiKey) {
+    if (geminiApiKey) {
+        const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+        const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
+        try {
+            const response = await ai.models.generateContent({
+                model: modelName,
+                contents: prompt,
+                config: {
+                    responseMimeType: "application/json",
+                }
+            });
+            return response.text;
+        } catch (error) {
+            console.error("Error calling Gemini API:", error);
+            throw new Error(`Gemini API call failed: ${error instanceof Error ? error.message : String(error)}`);
+        }
+    } else {
         throw new Error("VITE_GEMINI_API_KEY is not set in the environment.");
-    }
-
-    const ai = new GoogleGenAI({ apiKey: geminiApiKey });
-    const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
-    try {
-        const response = await ai.models.generateContent({
-            model: modelName,
-            contents: prompt,
-            config: {
-                responseMimeType: "application/json",
-            }
-        });
-        return response.text;
-    } catch (error) {
-        console.error("Error calling Gemini API:", error);
-        throw new Error(`Gemini API call failed: ${error instanceof Error ? error.message : String(error)}`);
     }
 }
 

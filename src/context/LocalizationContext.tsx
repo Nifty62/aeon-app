@@ -1,4 +1,5 @@
-import React, { createContext, useState, useContext, ReactNode, useCallback, useEffect } from 'react';
+import React, { createContext, useState, useContext, useCallback, useEffect } from 'react';
+import type { ReactNode } from 'react';
 import translations from '../localization/index.ts';
 import type { Language } from '../types.ts';
 

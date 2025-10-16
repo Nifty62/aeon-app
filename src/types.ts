@@ -174,8 +174,8 @@ export interface RiskSentimentAnalysis {
 
 export interface FullAppState {
     sourceSettings: SourceSettings;
-    apiKeys: ApiKey[];
-    selectedApiKeyId: string | null;
+    apiKeys?: ApiKey[];
+    selectedApiKeyId?: string | null;
     marketDataApiKey?: MarketDataApiKey;
     recapStyle: RecapStyle;
     aiModelSettings: AIModelSettings;

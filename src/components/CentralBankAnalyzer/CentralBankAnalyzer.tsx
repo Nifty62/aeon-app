@@ -6,13 +6,12 @@ import { useLocalization } from '../../context/LocalizationContext.tsx';
 
 interface CentralBankAnalyzerProps {
     currencyCode: string;
-    apiKey: ApiKey;
     aiModelSettings: AIModelSettings;
     onUpdateScore: (score: Score) => void;
     configuredUrls: string[];
 }
 
-const CentralBankAnalyzer: React.FC<CentralBankAnalyzerProps> = ({ currencyCode, apiKey, aiModelSettings, onUpdateScore, configuredUrls }) => {
+const CentralBankAnalyzer: React.FC<CentralBankAnalyzerProps> = ({ currencyCode, aiModelSettings, onUpdateScore, configuredUrls }) => {
     const { t } = useLocalization();
     const [urls, setUrls] = useState<string[]>(configuredUrls);
     const [files, setFiles] = useState<File[]>([]);
@@ -87,7 +86,7 @@ const CentralBankAnalyzer: React.FC<CentralBankAnalyzerProps> = ({ currencyCode,
         setError(null);
         setResult(null);
         try {
-            const analysisResult = await analyzeCentralBank(currencyCode, apiKey, aiModelSettings, urls, files);
+            const analysisResult = await analyzeCentralBank(currencyCode, aiModelSettings, urls, files);
             setResult(analysisResult);
             onUpdateScore(analysisResult);
         } catch (err) {

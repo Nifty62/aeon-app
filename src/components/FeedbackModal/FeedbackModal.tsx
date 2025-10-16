@@ -42,7 +42,7 @@ const FeedbackModal: React.FC<FeedbackModalProps> = ({ isOpen, onClose, appState
             };
             // Use a replacer to handle large objects or circular references if needed,
             // and truncate large arrays to keep the mailto link from getting too long.
-            const replacer = (key, value) => {
+            const replacer = (_key: string, value: any) => {
                 if (Array.isArray(value) && value.length > 50) {
                     return `Array with ${value.length} items (truncated)`;
                 }

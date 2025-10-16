@@ -346,16 +346,7 @@ const App: React.FC = () => {
 
 
     // --- DATA COMPUTATION ---
-    const activeApiKey = useMemo(() => {
-        // This is now just a placeholder; the key is read directly from the environment in ai.ts
-        // We create a dummy object to satisfy type requirements where this is passed.
-        return {
-            id: 'env-key',
-            provider: 'gemini',
-            name: 'Vercel Environment Key',
-            key: import.meta.env.VITE_GEMINI_API_KEY 
-        } as ApiKey;
-    }, []);
+
 
     const calculateBaseSigmaScore = (scores: { [key in Indicator]?: Score }): number => {
         // Separate PMI scores from the rest
@@ -826,9 +817,6 @@ const App: React.FC = () => {
 
     const handleSaveSettings = (
         newSources: SourceSettings,
-        newApiKeys: ApiKey[],
-        newSelectedKeyId: string | null,
-        newMarketDataApiKey: MarketDataApiKey | undefined,
         newRecapStyle: RecapStyle,
         newAiModelSettings: AIModelSettings,
         newRetrySettings: RetrySettings,
@@ -837,9 +825,6 @@ const App: React.FC = () => {
         newTheme: Theme
     ) => {
         setSourceSettings(newSources);
-        setApiKeys(newApiKeys);
-        setSelectedApiKeyId(newSelectedKeyId);
-        setMarketDataApiKey(newMarketDataApiKey);
         setRecapStyle(newRecapStyle);
         setAiModelSettings(newAiModelSettings);
         setRetrySettings(newRetrySettings);
@@ -851,9 +836,6 @@ const App: React.FC = () => {
 
     const handleImportAllData = (importedData: FullAppState) => {
         if (importedData.sourceSettings) setSourceSettings(importedData.sourceSettings);
-        if (importedData.apiKeys) setApiKeys(importedData.apiKeys);
-        if (importedData.selectedApiKeyId) setSelectedApiKeyId(importedData.selectedApiKeyId);
-        if (importedData.marketDataApiKey) setMarketDataApiKey(importedData.marketDataApiKey);
         if (importedData.recapStyle) setRecapStyle(importedData.recapStyle);
         if (importedData.aiModelSettings) setAiModelSettings(prev => ({ ...prev, ...importedData.aiModelSettings }));
         if (importedData.retrySettings) setRetrySettings(prev => ({ ...prev, ...importedData.retrySettings }));
@@ -1042,9 +1024,6 @@ const App: React.FC = () => {
                     isOpen={isSettingsModalOpen}
                     onClose={() => setIsSettingsModalOpen(false)}
                     sourceSettings={sourceSettings}
-                    apiKeys={apiKeys}
-                    selectedApiKeyId={selectedApiKeyId}
-                    marketDataApiKey={marketDataApiKey}
                     recapStyle={recapStyle}
                     aiModelSettings={aiModelSettings}
                     retrySettings={retrySettings}

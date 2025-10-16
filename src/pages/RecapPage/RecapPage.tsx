@@ -18,7 +18,6 @@ import './RecapPage.css';
 interface RecapPageProps {
     analysisData: AnalysisData;
     sourceSettings: SourceSettings;
-    apiKey: ApiKey | undefined;
     aiModelSettings: AIModelSettings;
     recapStyle: RecapStyle;
     retrySettings: RetrySettings;
@@ -37,7 +36,6 @@ const BLANK_RECAP: EconomicRecap = {
 
 const RecapPage: React.FC<RecapPageProps> = ({
     analysisData,
-    apiKey,
     aiModelSettings,
     recapStyle,
     retrySettings,
@@ -60,11 +58,6 @@ const RecapPage: React.FC<RecapPageProps> = ({
 
 
     const handleGenerateRecap = useCallback(async (currencyCode: string) => {
-        if (!apiKey) {
-            setError(t('analysisModal.recap.apiKeyWarning'));
-            return;
-        }
-
         const currencyData = analysisData[currencyCode];
         if (!currencyData || Object.keys(currencyData.scores).length === 0) {
             setError(`No scoring data available for ${currencyCode} to generate a recap.`);
@@ -84,7 +77,6 @@ const RecapPage: React.FC<RecapPageProps> = ({
                 const recapResult = await generateRecap(
                     currencyCode,
                     currencyData.scores as IndicatorScores,
-                    apiKey,
                     aiModelSettings,
                     recapStyle
                 );
@@ -100,7 +92,7 @@ const RecapPage: React.FC<RecapPageProps> = ({
             }
         }
         setIsLoading(null);
-    }, [apiKey, analysisData, aiModelSettings, recapStyle, retrySettings, onUpdateRecap, t]);
+    }, [analysisData, aiModelSettings, recapStyle, retrySettings, onUpdateRecap, t]);
 
     const handleEdit = () => {
         setEditableRecap(JSON.parse(JSON.stringify(currentRecap || BLANK_RECAP)));
@@ -266,8 +258,7 @@ const RecapPage: React.FC<RecapPageProps> = ({
                     <button
                         className="recap-action-button"
                         onClick={() => handleGenerateRecap(selectedCurrency)}
-                        disabled={!!isLoading || !apiKey || isEditing}
-                        title={!apiKey ? t('analysisModal.recap.apiKeyWarning') : ''}
+                        disabled={!!isLoading || isEditing}
                     >
                         {isLoading === selectedCurrency ? t('analysisModal.recap.button.loading') : 
                          currentRecap ? t('analysisModal.recap.button.regenerate') : t('analysisModal.recap.button.generate')}

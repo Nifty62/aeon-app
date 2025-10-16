@@ -1,0 +1,53 @@
+.scraping-log-page {
+    display: flex;
+    flex-direction: column;
+    height: 100%; 
+}
+
+.log-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+
+.log-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.log-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.log-failure-summary {
+    margin-top: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+}
+
+.log-failure-summary.has-failures {
+    color: #E57373; /* Red color for failures */
+}
+
+
+.log-content-container {
+    flex-grow: 1;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: auto;
+    padding: 1.5rem;
+}
+
+.log-content {
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-family: 'Menlo', 'monospace';
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}

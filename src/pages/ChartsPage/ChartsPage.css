@@ -1,0 +1,162 @@
+
+.charts-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.charts-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    color: var(--text-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+}
+
+.charts-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.charts-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.charts-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.charts-container {
+    display: flex;
+    gap: 2rem;
+    min-height: 600px;
+}
+
+.charts-controls {
+    width: 280px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.control-group label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+.control-group select {
+    width: 100%;
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.75rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+    font-family: inherit;
+}
+
+.metrics-list {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.metric-group-title {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--primary-color);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0.75rem 0.25rem;
+}
+.metric-group-title:first-child {
+    margin-top: 0;
+}
+
+
+.metric-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.metric-item:hover {
+    background-color: var(--background-color);
+}
+
+.metric-item input[type="checkbox"] {
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    flex-shrink: 0;
+}
+
+.metric-item input[type="checkbox"]:checked {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.metric-item input[type="checkbox"]:checked::after {
+    content: '✔';
+    position: absolute;
+    color: white;
+    font-size: 12px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.metric-item label {
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    margin: 0;
+}
+
+.chart-area {
+    flex-grow: 1;
+    background-color: var(--surface-color);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+/* --- Responsive Design --- */
+@media screen and (max-width: 800px) {
+    .charts-container {
+        flex-direction: column;
+    }
+
+    .charts-controls {
+        width: 100%;
+    }
+
+    .metrics-list {
+        max-height: 250px; /* Prevent control panel from being too tall */
+    }
+
+    .chart-area {
+        min-height: 400px; /* Ensure chart has enough space */
+    }
+}

@@ -1,0 +1,174 @@
+.welcome-modal-content {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 0;
+    width: 90%;
+    max-width: 600px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.welcome-modal-content .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.language-selector-welcome select {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.language-selector-welcome select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+
+.welcome-modal-body {
+    overflow-y: auto;
+    padding: 1.5rem 2rem;
+}
+
+.welcome-intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    text-align: center;
+}
+
+.api-key-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.api-key-section {
+    background-color: var(--background-color);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--primary-color);
+}
+
+.api-key-section h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--text-primary);
+}
+
+.api-key-section p {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.api-key-section a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 0.5rem;
+}
+
+.api-key-section a:hover {
+    text-decoration: underline;
+}
+
+.instruction-section {
+    margin-top: 2rem;
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+}
+
+.instruction-section h4 {
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.instruction-accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.instruction-item {
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: var(--background-color);
+}
+
+.instruction-toggle {
+    width: 100%;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    font-weight: 500;
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.instruction-toggle .chevron {
+    transition: transform 0.2s ease-in-out;
+    font-size: 0.8rem;
+}
+.instruction-toggle .chevron.open {
+    transform: rotate(180deg);
+}
+
+.instruction-content {
+    padding: 0 1rem 1rem 1rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 0.5rem;
+    color: var(--text-secondary);
+}
+
+.instruction-list {
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.welcome-modal-content .modal-footer {
+    justify-content: space-between;
+}
+
+.welcome-modal-content .settings-button {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.welcome-modal-content .settings-button:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.welcome-modal-content .start-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 600;
+}
+.welcome-modal-content .start-button:hover {
+    background-color: var(--primary-hover-color);
+}

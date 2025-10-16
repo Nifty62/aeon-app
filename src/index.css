@@ -1,0 +1,139 @@
+:root {
+  --font-family: 'Manrope', sans-serif;
+
+  /* --- Dark Theme (Default) --- */
+  --background-color: #121212;
+  --surface-color: #1E1E1E;
+  --primary-color: #00e676; /* User's New Vibrant Green */
+  --primary-hover-color: #00b35c; /* Darker Green */
+  --text-primary: #EAEAEA;
+  --text-secondary: #B0B0B0;
+  --border-color: #333333;
+  --button-disabled-bg: #555;
+  
+  /* Semantic Colors */
+  --score-plus-2-bg: rgba(0, 230, 118, 0.3);
+  --score-plus-2-text: #66ffb3;
+  --score-plus-1-bg: rgba(0, 230, 118, 0.2);
+  --score-plus-1-text: #00e676;
+  --score-zero-text: var(--text-secondary);
+  --score-minus-1-bg: rgba(244, 67, 54, 0.2);
+  --score-minus-1-text: #f39a92;
+  --score-minus-2-bg: rgba(211, 47, 47, 0.3);
+  --score-minus-2-text: #f3827a;
+  
+  --direction-bullish-text: #00e676;
+  --direction-vbullish-text: #66ffb3;
+  --direction-neutral-text: var(--text-secondary);
+  --direction-bearish-text: #f39a92;
+  --direction-vbearish-text: #f3827a;
+
+  --modifier-positive-text: var(--direction-bullish-text);
+  --modifier-negative-text: var(--direction-bearish-text);
+  --modifier-neutral-text: var(--direction-neutral-text);
+
+  --risk-on-bg: rgba(0, 230, 118, 0.15);
+  --risk-on-text: var(--primary-color);
+  --risk-off-bg: rgba(233, 78, 119, 0.15);
+  --risk-off-text: #E94E77;
+  --risk-neutral-bg: rgba(176, 176, 176, 0.15);
+  --risk-neutral-text: var(--text-secondary);
+
+  --pnl-positive-text: var(--direction-bullish-text);
+  --pnl-negative-text: var(--direction-bearish-text);
+
+  --flag-green-bg: var(--risk-on-bg);
+  --flag-green-text: var(--risk-on-text);
+  --flag-yellow-bg: rgba(255, 167, 38, 0.2);
+  --flag-yellow-text: #FFCC80;
+  --flag-red-bg: rgba(211, 47, 47, 0.2);
+  --flag-red-text: #f3827a;
+}
+
+.light-theme {
+  /* --- Light Theme --- */
+  --background-color: #F4F6F8;
+  --surface-color: #FFFFFF;
+  --primary-color: #00b35c; /* Darker Green for light theme */
+  --primary-hover-color: #008040; /* Even Darker Green */
+  --text-primary: #1F2937;
+  --text-secondary: #6B7280;
+  --border-color: #E5E7EB;
+  --button-disabled-bg: #D1D5DB;
+
+  /* Semantic Colors */
+  --score-plus-2-bg: #b3ffda;
+  --score-plus-2-text: #006633;
+  --score-plus-1-bg: #e6fff2;
+  --score-plus-1-text: #008040;
+  --score-zero-text: var(--text-secondary);
+  --score-minus-1-bg: #FEF2F2;
+  --score-minus-1-text: #991B1B;
+  --score-minus-2-bg: #FEE2E2;
+  --score-minus-2-text: #7F1D1D;
+
+  --direction-bullish-text: #008040;
+  --direction-vbullish-text: #006633;
+  --direction-neutral-text: var(--text-secondary);
+  --direction-bearish-text: #991B1B;
+  --direction-vbearish-text: #7F1D1D;
+
+  --modifier-positive-text: var(--direction-bullish-text);
+  --modifier-negative-text: var(--direction-bearish-text);
+  --modifier-neutral-text: var(--direction-neutral-text);
+
+  --risk-on-bg: #e6fff2;
+  --risk-on-text: #008040;
+  --risk-off-bg: #FEE2E2;
+  --risk-off-text: #991B1B;
+  --risk-neutral-bg: #F3F4F6;
+  --risk-neutral-text: var(--text-secondary);
+
+  --pnl-positive-text: var(--direction-bullish-text);
+  --pnl-negative-text: var(--direction-bearish-text);
+
+  --flag-green-bg: var(--risk-on-bg);
+  --flag-green-text: var(--risk-on-text);
+  --flag-yellow-bg: #FEF9C3;
+  --flag-yellow-text: #854D0E;
+  --flag-red-bg: var(--risk-off-bg);
+  --flag-red-text: var(--risk-off-text);
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px; /* Increase base font size for a larger UI */
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.5;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+body.modal-open {
+  overflow: hidden;
+}
+
+#root {
+  /* Layout styles removed and moved to .app-container */
+}
+
+button {
+  cursor: pointer;
+  font-family: var(--font-family);
+  border: none;
+  border-radius: 6px;
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}

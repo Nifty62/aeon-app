@@ -1,0 +1,161 @@
+.no-trades-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 300px;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    text-align: center;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+}
+
+.trade-list-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+}
+
+.trade-list-table th,
+.trade-list-table td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border-color);
+    text-align: left;
+    vertical-align: middle;
+}
+
+.trade-list-table thead th {
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.trade-list-table tbody tr:hover {
+    background-color: rgba(100, 100, 100, 0.03);
+}
+
+.direction-long {
+    color: var(--direction-bullish-text);
+    font-weight: 500;
+}
+.direction-short {
+    color: var(--direction-bearish-text);
+    font-weight: 500;
+}
+
+.pnl-positive {
+    color: var(--pnl-positive-text);
+}
+.pnl-negative {
+    color: var(--pnl-negative-text);
+}
+
+.status-badge {
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.status-open {
+    background-color: rgba(74, 144, 226, 0.2);
+    color: #8cbef2;
+}
+.status-closed {
+    background-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.notes-column {
+    max-width: 300px;
+}
+
+.notes-column p {
+    white-space: pre-wrap;
+    word-break: break-word;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-height: 60px; /* 3 lines approx */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-button {
+    font-size: 0.85rem;
+    padding: 0.25rem 0.75rem;
+    font-weight: 500;
+    border-radius: 4px;
+}
+
+.edit-button {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.edit-button:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.delete-button {
+    background-color: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+.delete-button:hover {
+    background-color: var(--score-minus-2-bg);
+    border-color: var(--score-minus-2-text);
+    color: var(--score-minus-2-text);
+}
+
+/* --- Responsive Card Layout --- */
+@media screen and (max-width: 800px) {
+    .trade-list-table {
+        border: none;
+    }
+
+    .trade-list-table thead {
+        display: none;
+    }
+
+    .trade-list-table tr {
+        display: block;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        background-color: var(--surface-color);
+    }
+    
+    .trade-list-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        text-align: right;
+        border-bottom: 1px solid var(--background-color);
+    }
+
+    .trade-list-table td::before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-align: left;
+        padding-right: 1rem;
+    }
+
+    .trade-list-table .notes-column p {
+        max-height: none;
+        text-align: right;
+    }
+
+    .trade-list-table tr td:last-child {
+        border-bottom: none;
+    }
+}

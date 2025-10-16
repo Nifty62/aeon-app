@@ -1,0 +1,35 @@
+
+.trade-form-modal-content {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 0;
+    width: 90%;
+    max-width: 700px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.trade-form {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+}
+
+.trade-form .form-grid-three {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    margin-bottom: 1.5rem;
+}
+
+.trade-form .form-group {
+    margin-bottom: 0;
+}
+
+input:disabled {
+    background-color: var(--background-color);
+    cursor: not-allowed;
+    opacity: 0.6;
+}

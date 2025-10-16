@@ -1,0 +1,30 @@
+.text-entry-modal-content {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    padding: 0;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+.text-entry-modal-body {
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+.text-entry-modal-body .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.text-entry-modal-body label {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+}

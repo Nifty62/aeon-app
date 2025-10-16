@@ -1,0 +1,104 @@
+.risk-indicator-card {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    gap: 1rem;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.override-indicator {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--primary-color);
+    background-color: rgba(74, 144, 226, 0.1);
+    padding: 0.1rem 0.4rem;
+    border-radius: 4px;
+    vertical-align: middle;
+}
+
+.card-role {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+}
+
+.signal-select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    padding: 0.4rem 1rem;
+    border-radius: 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    cursor: pointer;
+    text-align: center;
+}
+
+.signal-select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 1px;
+}
+
+.signal-select option {
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    font-weight: 500;
+    text-transform: none;
+}
+
+.signal-select.risk-on {
+    background-color: var(--risk-on-bg);
+    color: var(--risk-on-text);
+}
+
+.signal-select.risk-off {
+    background-color: var(--risk-off-bg);
+    color: var(--risk-off-text);
+}
+
+.signal-select.neutral {
+    background-color: var(--risk-neutral-bg);
+    color: var(--risk-neutral-text);
+}
+
+.card-chart {
+    padding: 1rem;
+}
+
+.card-footer {
+    padding: 1rem 1.25rem;
+    background-color: var(--background-color);
+    border-top: 1px solid var(--border-color);
+    margin-top: auto;
+}
+
+.card-rationale {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    margin: 0;
+    text-align: center;
+}

@@ -1,0 +1,210 @@
+.risk-sentiment-page {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.risk-header {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2rem;
+}
+
+.risk-header-content {
+    flex-grow: 1;
+}
+
+.risk-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.risk-header p {
+    color: var(--text-secondary);
+    font-size: 1rem;
+}
+
+.run-analysis-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.run-analysis-button:hover {
+    background-color: var(--primary-hover-color);
+}
+
+.run-analysis-button:disabled {
+    background-color: var(--button-disabled-bg);
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.risk-placeholder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    color: var(--text-secondary);
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+    padding: 2rem;
+}
+.risk-placeholder h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+.risk-placeholder p {
+    max-width: 400px;
+}
+
+.conviction-meter {
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem 1.25rem 2.5rem; /* More padding on left for the bar */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* To contain the pseudo-element */
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.conviction-meter::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 8px;
+    background-color: var(--border-color); /* Default color for neutral */
+    transition: background-color 0.3s ease;
+}
+
+.conviction-meter.signal-riskon::before {
+    background-color: var(--risk-on-text);
+}
+.conviction-meter.signal-riskoff::before {
+    background-color: var(--risk-off-text);
+}
+
+.conviction-main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.conviction-overrides {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-end;
+}
+.conviction-overrides .form-group {
+    display: flex;
+    flex-direction: column;
+}
+.conviction-overrides .form-group label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.25rem;
+}
+.conviction-overrides .form-group select {
+    background-color: var(--background-color);
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+
+.conviction-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin: 0 0 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.conviction-text {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0;
+    transition: color 0.3s ease;
+}
+
+.conviction-summary {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-align: right;
+}
+
+/* Conviction/Signal Colors */
+.conviction-meter.signal-riskon .conviction-text { color: var(--risk-on-text); }
+.conviction-meter.signal-riskoff .conviction-text { color: var(--risk-off-text); }
+.conviction-meter.signal-neutral .conviction-text { color: var(--risk-neutral-text); }
+
+/* Conviction level styles for emphasis */
+.conviction-text.conviction-high {
+    text-shadow: 0 0 8px currentColor;
+}
+.conviction-text.conviction-medium {
+    opacity: 0.9;
+}
+.conviction-text.conviction-uncertain {
+    opacity: 0.7;
+}
+
+.indicators-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* --- Responsive Design --- */
+@media screen and (max-width: 800px) {
+    .risk-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .run-analysis-button {
+        width: 100%;
+    }
+
+    .conviction-main {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        width: 100%;
+    }
+    
+    .conviction-overrides {
+        width: 100%;
+    }
+    .conviction-overrides .form-group {
+        flex-grow: 1;
+    }
+
+    .conviction-summary {
+        width: 100%;
+        text-align: left;
+    }
+}

@@ -1,0 +1,26 @@
+
+.trade-journal-page {
+    width: 100%;
+}
+
+.journal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.journal-header h2 {
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+.add-trade-button {
+    background-color: var(--primary-color);
+    color: white;
+    font-weight: 500;
+}
+
+.add-trade-button:hover {
+    background-color: var(--primary-hover-color);
+}

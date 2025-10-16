@@ -1,0 +1,297 @@
+.table-container {
+    overflow-x: auto;
+}
+
+.analysis-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.analysis-table th,
+.analysis-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.analysis-table thead th {
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+    padding: 0;
+}
+
+.analysis-table thead th a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.analysis-table thead th a:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+.analysis-table tbody th {
+    font-weight: 600;
+    color: var(--text-primary);
+    padding: 0;
+}
+
+.analysis-table td {
+    color: var(--text-primary);
+    min-width: 130px;
+    font-weight: 500;
+    padding: 0;
+}
+
+.analysis-table tr:last-child th,
+.analysis-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* --- Unified Selection Styling --- */
+.analysis-table tbody tr.selected {
+    box-shadow: inset 3px 0 0 0 var(--primary-color);
+}
+.analysis-table tr.selected > td,
+.analysis-table tr.selected > th,
+.analysis-table td.cell-selected {
+    position: relative;
+}
+.analysis-table tr.selected > td::before,
+.analysis-table tr.selected > th::before,
+.analysis-table td.cell-selected::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(74, 144, 226, 0.2);
+    pointer-events: none;
+    z-index: 0;
+}
+.analysis-table tr.selected:hover > td::before,
+.analysis-table tr.selected:hover > th::before,
+.analysis-table td.cell-selected:hover::before {
+    background-color: rgba(74, 144, 226, 0.3);
+}
+
+.currency-button {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-align: left;
+}
+
+.currency-flag {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+/* Clickable elements */
+.header-button, .currency-button, .score-button {
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    cursor: pointer;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    text-align: inherit;
+    border-radius: 0;
+    transition: background-color 0.2s ease;
+    position: relative;
+    z-index: 1;
+}
+
+.modifier-cell-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0 0.5rem;
+}
+
+.rationale-button {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.rationale-button:hover {
+    background-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.rationale-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+.direction-select, .modifier-select {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 1rem;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+    transition: background-color 0.2s ease;
+}
+.direction-select option, .modifier-select option {
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+}
+.direction-select:hover, .modifier-select:hover {
+    background-color: rgba(100, 100, 100, 0.05);
+}
+.direction-select:focus, .modifier-select:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+    z-index: 1;
+}
+
+.header-button {
+    justify-content: center;
+}
+
+.header-button:hover, .currency-button:hover, .score-button:hover {
+    background-color: rgba(100, 100, 100, 0.05);
+}
+
+.header-button:focus-visible, .currency-button:focus-visible, .score-button:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: -2px;
+    z-index: 1;
+}
+
+
+/* Score Colors */
+.score-plus-2 { background-color: var(--score-plus-2-bg); color: var(--score-plus-2-text); font-weight: 700; }
+.score-plus-1 { background-color: var(--score-plus-1-bg); color: var(--score-plus-1-text); }
+.score-zero { color: var(--score-zero-text); }
+.score-minus-1 { background-color: var(--score-minus-1-bg); color: var(--score-minus-1-text); }
+.score-minus-2 { background-color: var(--score-minus-2-bg); color: var(--score-minus-2-text); font-weight: 700; }
+
+/* Direction Colors */
+.direction-very-bullish { color: var(--direction-vbullish-text); font-weight: 700; }
+.direction-bullish { color: var(--direction-bullish-text); }
+.direction-neutral { color: var(--direction-neutral-text); }
+.direction-bearish { color: var(--direction-bearish-text); }
+.direction-very-bearish { color: var(--direction-vbearish-text); font-weight: 700; }
+
+/* Modifier Colors */
+.modifier-positive { color: var(--modifier-positive-text); font-weight: 600; }
+.modifier-neutral { color: var(--modifier-neutral-text); }
+.modifier-negative { color: var(--modifier-negative-text); font-weight: 600; }
+
+/* Median Row */
+.analysis-table tfoot th,
+.analysis-table tfoot td {
+    padding: 1rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    border-top: 2px solid var(--border-color);
+    background-color: var(--background-color);
+}
+
+.analysis-table tfoot th {
+    text-align: left;
+}
+
+.analysis-table tfoot .median-placeholder {
+    background-color: var(--surface-color);
+}
+
+
+/* --- Responsive Card Layout --- */
+@media screen and (max-width: 800px) {
+    .analysis-table {
+        border: none;
+    }
+
+    .analysis-table thead {
+        display: none;
+    }
+
+    .analysis-table tr {
+        display: block;
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        background-color: var(--surface-color);
+    }
+
+    .analysis-table td, .analysis-table th {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem 1rem;
+        text-align: right;
+        border-bottom: 1px solid var(--background-color);
+        min-width: 0;
+    }
+
+    .analysis-table td::before {
+        content: attr(data-label);
+        font-weight: 500;
+        color: var(--text-secondary);
+        text-align: left;
+        padding-right: 1rem;
+    }
+    
+    .analysis-table tbody th {
+        background-color: var(--background-color);
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+    
+    .analysis-table .currency-button,
+    .analysis-table .score-button {
+        padding: 0;
+        width: auto;
+    }
+
+    .analysis-table .currency-button {
+        width: 100%;
+        padding: 0.75rem 1rem;
+    }
+
+    .analysis-table .modifier-select {
+        text-align: right;
+        padding: 0.75rem 0.5rem;
+        max-width: 80px;
+    }
+
+    .analysis-table tr td:last-child {
+        border-bottom: none;
+    }
+
+    .analysis-table tfoot {
+        display: none; /* Hide median row on mobile for simplicity */
+    }
+}

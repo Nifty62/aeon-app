@@ -1,0 +1,32 @@
+.currency-pairs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95rem;
+    text-align: center;
+}
+
+.currency-pairs-table th,
+.currency-pairs-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.currency-pairs-table thead th {
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.currency-pairs-table tbody td {
+    font-weight: 500;
+}
+
+/* Direction Colors - Reused from AnalysisTable */
+.direction-very-bullish { color: var(--direction-vbullish-text); font-weight: 700; }
+.direction-bullish { color: var(--direction-bullish-text); }
+.direction-neutral { color: var(--direction-neutral-text); }
+.direction-bearish { color: var(--direction-bearish-text); }
+.direction-very-bearish { color: var(--direction-vbearish-text); font-weight: 700; }

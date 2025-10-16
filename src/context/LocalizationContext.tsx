@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, ReactNode, useCallback, useEffect } from 'react';
-import translations from '../localization/index.js';
+import translations from '../localization/index.ts';
 import type { Language } from '../types.ts';
 
 interface LocalizationContextType {

@@ -1,4 +1,4 @@
-import config from './data/config.js';
+import config from './data/config.ts';
 
 export type RecapStyle = 'default' | 'simplified';
 

@@ -13,8 +13,8 @@ import type {
 } from './types';
 import { fetchWithProxy } from './services/scraperUtils';
 import { cacheService } from './services/cacheService';
-import scoringRules from './data/scoringRules.js';
-import { getScoringPrompt, getCentralBankPrompt, getRecapPrompt } from './data/prompts.js';
+import scoringRules from './data/scoringRules.ts';
+import { getScoringPrompt, getCentralBankPrompt, getRecapPrompt } from './data/prompts.ts';
 
 // --- UTILITY FUNCTIONS ---
 
@@ -42,35 +42,28 @@ const cleanHtml = (html: string): string => {
  */
 async function callAI(
     prompt: string,
-    apiKey: ApiKey,
     aiModelSettings: AIModelSettings
 ): Promise<string> {
-    if (!apiKey) {
-        throw new Error("API key is missing.");
+    const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+
+    if (!geminiApiKey) {
+        throw new Error("VITE_GEMINI_API_KEY is not set in the environment.");
     }
-    
-    // Per @google/genai guidelines, Gemini API calls MUST exclusively use process.env.API_KEY.
-    if (apiKey.provider === 'gemini') {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
-        const modelName = aiModelSettings.gemini || 'gemini-2.5-flash';
-        try {
-            const response = await ai.models.generateContent({
-                model: modelName,
-                contents: prompt,
-                config: {
-                    responseMimeType: "application/json",
-                }
-            });
-            return response.text;
-        } catch (error) {
-            console.error("Error calling Gemini API:", error);
-            throw new Error(`Gemini API call failed: ${error instanceof Error ? error.message : String(error)}`);
-        }
-    } else {
-        // TODO: Implement other AI providers like OpenAI, DeepSeek, etc.
-        // They would use apiKey.key for authentication.
-        console.error(`AI provider "${apiKey.provider}" is not implemented.`);
-        throw new Error(`AI provider "${apiKey.provider}" is not implemented.`);
+
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+    const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
+    try {
+        const response = await ai.models.generateContent({
+            model: modelName,
+            contents: prompt,
+            config: {
+                responseMimeType: "application/json",
+            }
+        });
+        return response.text;
+    } catch (error) {
+        console.error("Error calling Gemini API:", error);
+        throw new Error(`Gemini API call failed: ${error instanceof Error ? error.message : String(error)}`);
     }
 }
 
@@ -97,7 +90,6 @@ async function analyzeIndicator(
     currencyCode: string,
     indicator: Indicator,
     urls: string[],
-    apiKey: ApiKey,
     aiModelSettings: AIModelSettings,
     log: (entry: string) => void
 ): Promise<Score> {
@@ -131,7 +123,7 @@ async function analyzeIndicator(
     const rules = scoringRules[indicator as keyof typeof scoringRules]?.join('\n') || 'No specific rules provided.';
     const prompt = getScoringPrompt(indicator, currencyCode, rules, allContent.substring(0, 15000));
     
-    const responseText = await callAI(prompt, apiKey, aiModelSettings);
+    const responseText = await callAI(prompt, aiModelSettings);
     log(`AI Response received.\n\n`);
     
     const result = parseJsonResponse<Score>(responseText);
@@ -150,7 +142,6 @@ async function analyzeIndicator(
 export async function analyzeCurrency(
     currency: Currency,
     sourceSettings: SourceSettings,
-    apiKey: ApiKey | undefined,
     aiModelSettings: AIModelSettings,
     retrySettings: RetrySettings,
     setStatusMessage: (message: string) => void,
@@ -160,9 +151,7 @@ export async function analyzeCurrency(
     existingScores?: IndicatorScores,
     force: boolean = false
 ): Promise<IndicatorScores> {
-    if (runScoring && !apiKey) {
-        throw new Error("API key is required for scoring analysis.");
-    }
+
     
     const currencySources = sourceSettings[currency.code] || {};
     const indicators = indicatorsToRun || (Object.keys(currencySources) as Indicator[]);
@@ -199,8 +188,7 @@ export async function analyzeCurrency(
         const attempts = retrySettings.analyzeAll.enabled ? retrySettings.analyzeAll.attempts : 1;
         for (let i = 0; i < attempts; i++) {
             try {
-                // apiKey is checked for undefined at the top of the function if runScoring is true
-                const score = await analyzeIndicator(currency.code, indicator, urls, apiKey!, aiModelSettings, log);
+                const score = await analyzeIndicator(currency.code, indicator, urls, aiModelSettings, log);
                 newScores[indicator] = score;
                 cacheService.set(cacheKey, score);
                 break; // Success, exit retry loop
@@ -225,7 +213,6 @@ export async function analyzeCurrency(
  */
 export async function analyzeCentralBank(
     currencyCode: string,
-    apiKey: ApiKey,
     aiModelSettings: AIModelSettings,
     urls: string[],
     files: File[]
@@ -256,7 +243,7 @@ export async function analyzeCentralBank(
     }
     
     const prompt = getCentralBankPrompt(currencyCode, combinedText.substring(0, 18000));
-    const responseText = await callAI(prompt, apiKey, aiModelSettings);
+    const responseText = await callAI(prompt, aiModelSettings);
     const result = parseJsonResponse<Score>(responseText);
 
     if (typeof result.score !== 'number' || typeof result.rationale !== 'string' || typeof result.rawData !== 'string') {
@@ -272,12 +259,11 @@ export async function analyzeCentralBank(
 export async function generateRecap(
     currencyCode: string,
     analysisData: IndicatorScores,
-    apiKey: ApiKey,
     aiModelSettings: AIModelSettings,
     recapStyle: RecapStyle
 ): Promise<EconomicRecap> {
      const prompt = getRecapPrompt(currencyCode, recapStyle, analysisData);
-     const responseText = await callAI(prompt, apiKey, aiModelSettings);
+     const responseText = await callAI(prompt, aiModelSettings);
      const result = parseJsonResponse<EconomicRecap>(responseText);
 
      // Basic validation

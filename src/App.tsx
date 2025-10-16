@@ -41,10 +41,10 @@ import type {
 } from './types';
 import { analyzeCurrency } from './ai.ts';
 import { fetchAndAnalyzeRiskSentiment } from './services/riskAnalysis.ts';
-import currencies from './data/currencies.js';
-import scoringRules from './data/scoringRules.js';
-import initialSources from './data/initialSources.js';
-import { aiModels } from './data/config.js';
+import currencies from './data/currencies.ts';
+import scoringRules from './data/scoringRules.ts';
+import initialSources from './data/initialSources.ts';
+import { aiModels } from './data/config.ts';
 import { useLocalization } from './context/LocalizationContext.tsx';
 import './App.css';
 
@@ -153,40 +153,7 @@ const App: React.FC = () => {
         }
     });
     
-    const [apiKeys, setApiKeys] = useState<ApiKey[]>(() => {
-        try {
-            const saved = localStorage.getItem('apiKeys');
-            if (saved) {
-                const parsed = JSON.parse(saved);
-                return Array.isArray(parsed) ? parsed : [];
-            }
-            return [];
-        } catch (error) {
-            console.error("Failed to load apiKeys from localStorage", error);
-            return [];
-        }
-    });
 
-    const [marketDataApiKey, setMarketDataApiKey] = useState<MarketDataApiKey | undefined>(() => {
-        try {
-            const saved = localStorage.getItem('marketDataApiKey');
-            return saved ? JSON.parse(saved) : undefined;
-        } catch (error) {
-            console.error("Failed to load marketDataApiKey from localStorage", error);
-            return undefined;
-        }
-    });
-
-    const [selectedApiKeyId, setSelectedApiKeyId] = useState<string | null>(() => {
-        const savedSelected = localStorage.getItem('selectedApiKeyId');
-        if (savedSelected) return savedSelected;
-        const savedKeys = localStorage.getItem('apiKeys');
-        if (savedKeys) {
-            const parsedKeys = JSON.parse(savedKeys);
-            return parsedKeys[0]?.id || null;
-        }
-        return null;
-    });
 
     const [recapStyle, setRecapStyle] = useState<RecapStyle>(() => {
         return (localStorage.getItem('recapStyle') as RecapStyle) || 'default';
@@ -307,9 +274,7 @@ const App: React.FC = () => {
     useEffect(() => { localStorage.setItem('historicalData', JSON.stringify(historicalData)); }, [historicalData]);
     useEffect(() => { localStorage.setItem('riskSentiment', JSON.stringify(riskSentiment)); }, [riskSentiment]);
     useEffect(() => { localStorage.setItem('sourceSettings', JSON.stringify(sourceSettings)); }, [sourceSettings]);
-    useEffect(() => { localStorage.setItem('apiKeys', JSON.stringify(apiKeys)); }, [apiKeys]);
-    useEffect(() => { if(marketDataApiKey) localStorage.setItem('marketDataApiKey', JSON.stringify(marketDataApiKey)); else localStorage.removeItem('marketDataApiKey')}, [marketDataApiKey]);
-    useEffect(() => { if(selectedApiKeyId) localStorage.setItem('selectedApiKeyId', selectedApiKeyId); else localStorage.removeItem('selectedApiKeyId') }, [selectedApiKeyId]);
+
     useEffect(() => { localStorage.setItem('recapStyle', recapStyle); }, [recapStyle]);
     useEffect(() => { localStorage.setItem('aiModelSettings', JSON.stringify(aiModelSettings)); }, [aiModelSettings]);
     useEffect(() => { localStorage.setItem('retrySettings', JSON.stringify(retrySettings)); }, [retrySettings]);
@@ -382,8 +347,15 @@ const App: React.FC = () => {
 
     // --- DATA COMPUTATION ---
     const activeApiKey = useMemo(() => {
-        return apiKeys.find(k => k.id === selectedApiKeyId);
-    }, [apiKeys, selectedApiKeyId]);
+        // This is now just a placeholder; the key is read directly from the environment in ai.ts
+        // We create a dummy object to satisfy type requirements where this is passed.
+        return {
+            id: 'env-key',
+            provider: 'gemini',
+            name: 'Vercel Environment Key',
+            key: import.meta.env.VITE_GEMINI_API_KEY 
+        } as ApiKey;
+    }, []);
 
     const calculateBaseSigmaScore = (scores: { [key in Indicator]?: Score }): number => {
         // Separate PMI scores from the rest
@@ -483,7 +455,7 @@ const App: React.FC = () => {
     }, []);
 
     const handleRunRiskAnalysis = useCallback(async () => {
-        if (!marketDataApiKey?.key) {
+        if (!import.meta.env.VITE_ALPHA_VANTAGE_API_KEY) {
             alert(t('risk.noApiKey'));
             setRiskSentiment(null);
             return;
@@ -491,7 +463,7 @@ const App: React.FC = () => {
 
         setIsRiskAnalysisLoading(true);
         try {
-            const sentiment = await fetchAndAnalyzeRiskSentiment(marketDataApiKey);
+            const sentiment = await fetchAndAnalyzeRiskSentiment();
             setRiskSentiment(prev => {
                 const newState = { ...sentiment };
                 if (prev) { // Preserve existing overrides on refresh
@@ -516,7 +488,7 @@ const App: React.FC = () => {
         } finally {
             setIsRiskAnalysisLoading(false);
         }
-    }, [marketDataApiKey, recalculateOverallSentiment, t]);
+    }, [recalculateOverallSentiment, t]);
 
 
     const handleUpdateIndicatorOverride = useCallback((indicatorKey: string, override: RiskSignal | null) => {
@@ -642,8 +614,8 @@ const App: React.FC = () => {
     
     // --- ANALYSIS LOGIC ---
     const runAnalysis = useCallback(async (analysisMap: Map<string, Indicator[] | 'all'>, isFetchOnly: boolean, force: boolean = false) => {
-        if (!isFetchOnly && !activeApiKey) {
-            alert('Please configure a valid API key in settings to run analysis.');
+        if (!isFetchOnly && !import.meta.env.VITE_GEMINI_API_KEY) {
+            alert('VITE_GEMINI_API_KEY is not configured. Please set it in your environment.');
             return;
         }
     
@@ -661,7 +633,6 @@ const App: React.FC = () => {
                 const newScores = await analyzeCurrency(
                     currency,
                     sourceSettings,
-                    activeApiKey,
                     aiModelSettings,
                     retrySettings,
                     setAnalysisStatusMessage,
@@ -706,7 +677,7 @@ const App: React.FC = () => {
     
         setIsAnalyzing(false);
         setAnalysisStatusMessage(null);
-    }, [activeApiKey, sourceSettings, aiModelSettings, retrySettings, analysisData, updateAllDirections, saveSnapshot, checkForMissingData]);
+    }, [sourceSettings, aiModelSettings, retrySettings, analysisData, updateAllDirections, saveSnapshot, checkForMissingData]);
 
     const handleAnalyzeAll = useCallback((force: boolean = false) => {
         const analysisMap = new Map<string, 'all' | Indicator[]>();
@@ -936,7 +907,7 @@ const App: React.FC = () => {
     const activeTabLabel = tabConfig.find(tab => tab.key === activeAnalysisTab)?.labelKey || 'app.tab.scores';
 
     // --- RENDER ---
-    const isAnalyzeDisabled = !activeApiKey && !fetchOnly;
+    const isAnalyzeDisabled = !import.meta.env.VITE_GEMINI_API_KEY && !fetchOnly;
     return (
         <div className="app-container">
             {showWelcomeScreen && (
@@ -1047,7 +1018,6 @@ const App: React.FC = () => {
                     <RecapPage
                         analysisData={analysisData}
                         sourceSettings={sourceSettings}
-                        apiKey={activeApiKey}
                         aiModelSettings={aiModelSettings}
                         recapStyle={recapStyle}
                         retrySettings={retrySettings}

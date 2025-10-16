@@ -3,8 +3,8 @@
 import React, { useRef, useEffect } from 'react';
 import type { AnalysisData, Indicator } from '../../types.ts';
 import './AnalysisTable.css';
-import currencies from '../../data/currencies.js';
-import config from '../../data/config.js';
+import currencies from '../../data/currencies.ts';
+import config from '../../data/config.ts';
 import { useLocalization } from '../../context/LocalizationContext.tsx';
 import { getTranslationKey } from '../../utils/localization.ts';
 

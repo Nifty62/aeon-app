@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import type { AnalysisData, SourceSettings, Score, Indicator } from '../../types';
 import CentralBankAnalyzer from '../CentralBankAnalyzer/CentralBankAnalyzer.tsx';
 import './AnalysisModal.css';
-import currencies from '../../data/currencies.js';
-import config from '../../data/config.js';
+import currencies from '../../data/currencies.ts';
+import config from '../../data/config.ts';
 import { useLocalization } from '../../context/LocalizationContext.tsx';
 import { getTranslationKey } from '../../utils/localization.ts';
 

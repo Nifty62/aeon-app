@@ -115,7 +115,12 @@ const getOverallSentiment = (analyses: { [key: string]: IndicatorAnalysis }): Pa
     return { conviction, overallSignal, summary };
 };
 
-export const fetchAndAnalyzeRiskSentiment = async (apiKey: MarketDataApiKey): Promise<RiskSentimentAnalysis> => {
+export const fetchAndAnalyzeRiskSentiment = async (): Promise<RiskSentimentAnalysis> => {
+    const apiKey: MarketDataApiKey = {
+        provider: 'alphavantage',
+        key: import.meta.env.VITE_ALPHA_VANTAGE_API_KEY
+    };
+
     const [spxData, vixData, audjpyData, us10yData] = await Promise.all([
         fetchStockData('SPY', apiKey),       // S&P 500 ETF
         fetchStockData('VIXY', apiKey),      // VIX ETF as proxy

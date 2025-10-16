@@ -25,7 +25,7 @@ Your response MUST be a JSON object with the following structure, and nothing el
 export const getRecapPrompt = (currencyCode: string, recapStyle: RecapStyle, indicatorData: IndicatorScores) => {
     const indicatorText = Object.entries(indicatorData)
         .filter(([, data]) => data && typeof data.score === 'number') // Ensure data exists
-        .map(([indicator, data]) => `- ${indicator}: Score ${data.score}, Rationale: ${data.rationale}`)
+        .map(([indicator, data]) => `- ${indicator}: Score ${data!.score}, Rationale: ${data!.rationale}`)
         .join('\n');
 
     const simplifiedStylePrompt = `

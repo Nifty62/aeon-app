@@ -46,7 +46,7 @@ async function callAI(
     const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
     if (geminiApiKey) {
-        const ai = new GoogleGenAI({ apiKey: geminiApiKey });
+        const ai = new GoogleGenAI({ apiKey: geminiApiKey! });
         const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
         try {
             const response = await ai.models.generateContent({

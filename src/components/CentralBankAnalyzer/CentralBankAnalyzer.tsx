@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { analyzeCentralBank } from '../../ai.ts';
-import type { Score, ApiKey, AIModelSettings } from '../../types.ts';
+import type { Score, AIModelSettings } from '../../types.ts';
 import './CentralBankAnalyzer.css';
 import { useLocalization } from '../../context/LocalizationContext.tsx';
 

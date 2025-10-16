@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import {
     Header,
     AnalysisTable,
@@ -21,7 +21,6 @@ import CurrencyPairsTable from './components/CurrencyPairsTable/CurrencyPairsTab
 import type {
     AnalysisData,
     SourceSettings,
-    ApiKey,
     Indicator,
     Score,
     EconomicRecap,
@@ -33,7 +32,6 @@ import type {
     HistoricalData,
     HistoricalSnapshot,
     FullAppState,
-    MarketDataApiKey,
     RiskSentimentAnalysis,
     RiskSignal,
     Theme,

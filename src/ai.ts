@@ -43,13 +43,13 @@ async function callAI(
     prompt: string,
     aiModelSettings: AIModelSettings
 ): Promise<string> {
-    const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
+    const geminiApiKey = process.env.VITE_GEMINI_API_KEY; // Changed to process.env
 
     if (!geminiApiKey) {
         throw new Error("VITE_GEMINI_API_KEY is not set in the environment.");
     }
     
-    const ai = new GoogleGenAI({ apiKey: (geminiApiKey || '') as string });
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey as string }); // Use type assertion as process.env might be string | undefined
     const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
     try {
         const response = await ai.models.generateContent({

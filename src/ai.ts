@@ -43,8 +43,7 @@ async function callAI(
     prompt: string,
     aiModelSettings: AIModelSettings
 ): Promise<string> {
-    const geminiApiKey = process.env.VITE_GEMINI_API_KEY; // Changed to process.env
-    console.log('VITE_GEMINI_API_KEY from process.env:', geminiApiKey);
+    const geminiApiKey = process.env.VITE_GEMINI_API_KEY;
 
     if (!geminiApiKey) {
         throw new Error("VITE_GEMINI_API_KEY is not set in the environment.");

@@ -46,7 +46,12 @@ async function callAI(
     const geminiApiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
     if (geminiApiKey) {
-        const ai = new GoogleGenAI({ apiKey: geminiApiKey as string });
+    if (!geminiApiKey) {
+        throw new Error("VITE_GEMINI_API_KEY is not set in the environment.");
+    }
+    
+    const apiKeyString: string = geminiApiKey; 
+    const ai = new GoogleGenAI({ apiKey: apiKeyString });
         const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
         try {
             const response = await ai.models.generateContent({

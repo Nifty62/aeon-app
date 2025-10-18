@@ -49,8 +49,8 @@ async function callAI(
         throw new Error("VITE_GEMINI_API_KEY is not set in the environment.");
     }
     
-    const ai = new GoogleGenAI({ apiKey: geminiApiKey });
-    const modelName = 'gemini-1.5-flash';
+    const ai = new GoogleGenAI({ apiKey: geminiApiKey! }); // Use type assertion as process.env might be string | undefined
+    const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
     try {
         const response = await ai.models.generateContent({
             model: modelName,

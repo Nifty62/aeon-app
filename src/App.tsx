@@ -165,10 +165,15 @@ const App: React.FC = () => {
             anthropic: '',
             openrouter: aiModels.openrouter.free[0] || '',
         };
+        console.log("AI Model Settings Defaults:", defaults);
         try {
             const saved = localStorage.getItem('aiModelSettings');
-            return saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+            console.log("Saved AI Model Settings from localStorage:", saved);
+            const finalSettings = saved ? { ...defaults, ...JSON.parse(saved) } : defaults;
+            console.log("Final AI Model Settings:", finalSettings);
+            return finalSettings;
         } catch (error) {
+            console.error("Error loading AI Model Settings:", error);
             return defaults;
         }
     });

@@ -50,10 +50,9 @@ async function callAI(
     }
     
     const ai = new GoogleGenAI({ apiKey: geminiApiKey! }); // Use type assertion as process.env might be string | undefined
-    const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
     try {
         const response = await ai.models.generateContent({
-            model: modelName as string,
+            model: (aiModelSettings.gemini || 'gemini-1.5-flash') as string,
             contents: prompt,
             config: {
                 responseMimeType: "application/json",

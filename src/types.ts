@@ -8,8 +8,10 @@ export type Language = 'en' | 'nl';
 
 export type Theme = 'light' | 'dark';
 
+export type GeminiModel = string;
+
 export interface AIModelSettings {
-    gemini: string;
+    gemini: GeminiModel;
     openai: string;
     deepseek: string;
     anthropic: string;

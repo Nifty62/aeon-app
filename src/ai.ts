@@ -50,7 +50,7 @@ async function callAI(
     }
     
     const ai = new GoogleGenAI({ apiKey: geminiApiKey });
-    const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
+    const modelName = (aiModelSettings.gemini || 'gemini-1.5-flash') as string;
     try {
         const response = await ai.models.generateContent({
             model: modelName,

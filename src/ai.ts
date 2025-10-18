@@ -53,7 +53,7 @@ async function callAI(
     const modelName = aiModelSettings.gemini || 'gemini-1.5-flash';
     try {
         const response = await ai.models.generateContent({
-            model: modelName,
+            model: modelName as string,
             contents: prompt,
             config: {
                 responseMimeType: "application/json",
